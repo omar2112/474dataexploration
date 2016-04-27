@@ -1,7 +1,3 @@
-# 474dataexploration
-
-http://students.washington.edu/omar2112/info474/474dataexploration/
-
 Visual Layout
 
 Use of stacked bars to represent both survival and death rates in a single bar is the ideal choice for representing the Titanic data because
@@ -32,3 +28,5 @@ Those who have seen the James Cameron film may believe that saving women was a p
 At first glance this graph seems to suggest the opposite, about an equal number of men and women survived. What the visualization reveals 
 is that there were significantly more men than women onboard, with total men outnumbering women by about 4:1. Knowing this and knowing that 
 about the same number of men and women survived, we could conclude that women were far more likely to survive than men.
+
+
