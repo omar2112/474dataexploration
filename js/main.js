@@ -1,13 +1,50 @@
-function drawElem(bar, data) {
+var data;
+
+function clearGraph() {
+/*
     var svgElem = d3.select('#svgElem').attr('height', 2000);
-    var rekt = svgElem.selectAll('rect').data(bar, function(d){return d.id;});
+    var rekt = svgElem.selectAll('rect').data(barList, function(d){return d.id;});
+    rekt.exit()
+    .attr('width', 0)
+    .remove();
+    */
+var svg = d3.select("svg");
+svg.selectAll("*").remove();
+}
+
+
+function drawElem(barList, data, max, scaleY) { // just pass in scale as a number! brilliant. 
+var scaled = d3.scale.linear()
+	.domain([0, max])
+	.range([0,300]);
+var yAxis = d3.svg.axis()
+    .scale(scaled)
+    .orient("left");
+var tempScale = d3.scale.linear()
+	.domain([0, 1200])
+	.range([0,300]);
+var yAxisTemp = d3.svg.axis()
+    .scale(tempScale)
+    .orient("left");
+
+    var svgElem = d3.select('#svgElem').attr('height', 2000);
+    var rekt = svgElem.selectAll('rect').data(barList, function(d){return d.id;});
     rekt.enter()
     .append('rect')
     .attr('width', 50)
-    .attr("y", function(d){return d.Y;})
-    .attr("height", function(d){ return d.num;})
+    .attr("y", function(d){return scaled(d.Y);})
+    .attr("height", function(d){ return scaled(d.num);})
+    //.attr("y", function(d){return d.Y;})
+    //.attr("height", function(d){ return d.num;})
     .attr("x", function(d){return d.x * 90;})
-    .style("fill", function(d){return d.color;});  
+    .text(function(d){return d.id;})
+    .style("fill", function(d){return d.color;});
+ 
+//var yAxisGroup = svgElem.append("g")
+    svgElem.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(" + 50 + "," + scaleY + ")")
+    .call(yAxis); 
 }
 
 
@@ -60,26 +97,26 @@ function classOnly(data) {
     console.log(ar0d);
 
     var class0 = [
-	{id:"crew alive", num:ar0a, Y:100, color:"blue", x:3},
-	{id:"crew dead", num:ar0d, Y: 100 + ar0a, color:"gray", x:3}
+	{id:"crew alive", num:ar0a, Y:100, color:"blue", x:4},
+	{id:"crew dead", num:ar0d, Y: 100 + ar0a, color:"gray", x:4}
     ];
     var class1 = [
-	{id:"first class alive", num:ar1a, Y:100, color:"blue", x:0},
-	{id:"first class dead", num:ar1d, Y: 100 + ar1a, color:"gray", x:0}
+	{id:"first class alive", num:ar1a, Y:100, color:"blue", x:1},
+	{id:"first class dead", num:ar1d, Y: 100 + ar1a, color:"gray", x:1}
     ];
     var class2 = [
-	{id:"second class alive", num:ar2a, Y:100, color:"blue", x:1},
-	{id:"second class dead", num:ar2d, Y: 100 + ar2a, color:"gray", x:1}
+	{id:"second class alive", num:ar2a, Y:100, color:"blue", x:2},
+	{id:"second class dead", num:ar2d, Y: 100 + ar2a, color:"gray", x:2}
     ];
     var class3 = [
-	{id:"third class alive", num:ar3a, Y:100, color:"blue", x:2},
-	{id:"third class dead", num:ar3d, Y: 100 + ar3a, color:"gray", x:2}
+	{id:"third class alive", num:ar3a, Y:100, color:"blue", x:3},
+	{id:"third class dead", num:ar3d, Y: 100 + ar3a, color:"gray", x:3}
     ];
     
-    drawElem(class1, data);
-    drawElem(class2, data);
-    drawElem(class3, data);
-    drawElem(class0, data);
+    drawElem(class1, data, 673, 44.576523031203564);
+    drawElem(class2, data, 673, 44.576523031203564);
+    drawElem(class3, data, 673, 44.576523031203564);
+    drawElem(class0, data, 673, 44.576523031203564);
 
 }
 
@@ -106,16 +143,16 @@ function ageOnly(data) {
 	}
     }
     var childVar = [
-	{id:"children alive", num:childAlive, Y:100, color:"blue", x:1},
-	{id:"children dead", num:childDead, Y: 100 + childAlive, color:"gray", x:1}
+	{id:"children alive", num:childAlive, Y:100, color:"blue", x:2},
+	{id:"children dead", num:childDead, Y: 100 + childAlive, color:"gray", x:2}
     ];
     var adultVar = [
-	{id:"adult live", num:adultAlive, Y:100, color:"blue", x:0},
-	{id:"adult dead", num:adultDead, Y: 100 + adultAlive, color:"gray", x:0}
+	{id:"adult live", num:adultAlive, Y:100, color:"blue", x:1},
+	{id:"adult dead", num:adultDead, Y: 100 + adultAlive, color:"gray", x:1}
     ];
 
-    drawElem(adultVar, data);
-    drawElem(childVar, data);
+    drawElem(adultVar, data, 1364, 21.994134897360706);
+    drawElem(childVar, data, 1364, 21.994134897360706);
 
 }
 
@@ -143,21 +180,48 @@ function sexOnly(data) {
 	}
     }
     var femaleVar = [
-	{id:"females alive", num:femaleAlive, Y:100, color:"blue", x:1},
-	{id:"females dead", num:femaleDead, Y: 100 + femaleAlive, color:"gray", x:1}
+	{id:"females alive", num:femaleAlive, Y:100, color:"blue", x:2},
+	{id:"females dead", num:femaleDead, Y: 100 + femaleAlive, color:"gray", x:2}
     ];
     var maleVar = [
-	{id:"males live", num:maleAlive, Y:100, color:"blue", x:0},
-	{id:"males dead", num:maleDead, Y: 100 + maleAlive, color:"gray", x:0}
+	{id:"males live", num:maleAlive, Y:100, color:"blue", x:1},
+	{id:"males dead", num:maleDead, Y: 100 + maleAlive, color:"gray", x:1}
     ];
 
-    drawElem(femaleVar, data);
-    drawElem(maleVar, data);
+    //barList = [femaleVar, maleVar];
+
+    drawElem(femaleVar, data, 1364, 21.994134897360706);
+    drawElem(maleVar, data, 1364, 21.994134897360706);
+//21.994134897360706
+//44.576523031203564
 
 }
 
+function classClick() {
+    console.log("hi");
+    clearGraph();
+    classOnly(data);
+}
+
+function ageClick() {
+    console.log("hi");
+    clearGraph();
+    ageOnly(data);
+}
+
+function sexClick() {
+    console.log("hi");
+    clearGraph();
+    sexOnly(data);
+}
 
 $(function() {
+
+
+
+
+
+
 $.ajax({
     url: "./tcsv.csv",
     async: false,
@@ -170,7 +234,7 @@ $.ajax({
         // call a function on complete
 	console.log("success!");
 	console.log(data[1]);
-	sexOnly(data);
+	classOnly(data);
     }
     })
 });
