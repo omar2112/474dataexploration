@@ -8,24 +8,18 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js"></script>
 </head>
 <body>
-<!--
-<svg width="5000" height="5000">
-  <rect x="0" y="100" width="100" height = "50"></rect>
-  <rect x="0" y="100" width="100" height = "50" ></rect>
-!-->
+<h2>Titanic Survival Rates</h2>
+<p>Sources: http://www2.stetson.edu/~jrasp/data.htm, http://www.public.iastate.edu/~hofmann/data/titanic.html</p>
         <div id="btnDiv">
           <div>
             <div class='btn-group'>
               <button id="class" onclick="classClick()" class="btn btn-primary">Class</button>
               <button id="age" onclick="ageClick()" class="btn btn-primary">Age</button>
               <button id="sex" onclick="sexClick()" class="btn btn-primary">Sex</button>
-              <button id="classAge" onclick="classAgeClick()" class="btn btn-primary">Class and Age</button>
-              <button id="classSex" onclick="classSexClick()" class="btn btn-primary">Class and Sex</button>
-              <button id="ageSex" onclick="ageSexClick()" class="btn btn-primary">Age and Sex</button>
-              <button id="ageSexClass" onclick="ageSexClassClick()" class="btn btn-primary">Class, Age and Sex</button>
-
             </div>
           </div>
+<p>Blue: Survived</p>
+<p>Gray: Died</p>
    <svg id="svgElem" width="10000" height="10000"></svg>
    <div class="chart"></div>
 </svg>
