@@ -6,6 +6,7 @@
     <script type="text/javascript"  src="./js/jquery.csv.js"></script>
   <script type="text/javascript" src="./js/main.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
 <h2>Titanic Survival Rates</h2>
@@ -17,9 +18,14 @@
               <button id="age" onclick="ageClick()" class="btn btn-primary">Age</button>
               <button id="sex" onclick="sexClick()" class="btn btn-primary">Sex</button>
             </div>
+	    <p>Show only the highest ratio of survival</p>
+            <div class='btn-group'>
+              <button id="class (highest ratio only)" onclick="classRatioClick()" class="btn btn-primary">Class</button>
+              <button id="age (highest ratio only)" onclick="ageRatioClick()" class="btn btn-primary">Age</button>
+              <button id="sex (highest ratio only)" onclick="sexRatioClick()" class="btn btn-primary">Sex</button>
+            </div>
           </div>
-<p>Blue: Survived</p>
-<p>Gray: Died</p>
+<p>Blue: Survived Gray: Died</p>
    <svg id="svgElem" width="10000" height="10000"></svg>
    <div class="chart"></div>
 </svg>

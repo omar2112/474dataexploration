@@ -32,3 +32,10 @@ Those who have seen the James Cameron film may believe that saving women was a p
 At first glance this graph seems to suggest the opposite, about an equal number of men and women survived. What the visualization reveals 
 is that there were significantly more men than women onboard, with total men outnumbering women by about 4:1. Knowing this and knowing that 
 about the same number of men and women survived, we could conclude that women were far more likely to survive than men.
+
+Show only highest ratio
+
+This shows only the bar for the highest survival ratio. For class this shows us that the highest survival ratio for class was 1st class,
+with about a 2/3 survival rate. Children survived at about a 1/2 survival rate, with about 55 children surviving. Singling out the 
+highest survival rate by sex shows the greatest difference seen so far, with approximately 4/5 of the total women surviving. Isolating
+by women also gives us insight on exactly how few  women were onboard (about 400) compared to men. 

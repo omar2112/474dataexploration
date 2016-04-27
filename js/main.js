@@ -1,4 +1,5 @@
 var data;
+var ratio = false;
 
 function clearGraph() {
     var svg = d3.select("svg");
@@ -19,23 +20,42 @@ function drawElem(barList, data, max, scaleY) {
 	.scale(tempScale)
 	.orient("left");
 
+    if (ratio == false) {
+	var svgElem = d3.select('#svgElem').attr('height', 2000);
+	var rekt = svgElem.selectAll('rect').data(barList, function(d){return d.id;});
+	rekt.enter()
+	.append('rect')
+	.attr('width', 50)
+	.attr("y", function(d){return scaled(d.Y);})
+	.attr("height", function(d){ return scaled(d.num);})
+	.attr("x", function(d){return d.x * 90;})
+	.style("fill", function(d){return d.color;});
 
-    var svgElem = d3.select('#svgElem').attr('height', 2000);
-    var rekt = svgElem.selectAll('rect').data(barList, function(d){return d.id;});
-    rekt.enter()
-    .append('rect')
-    .attr('width', 50)
-    .attr("y", function(d){return scaled(d.Y);})
-    .attr("height", function(d){ return scaled(d.num);})
-    .attr("x", function(d){return d.x * 90;})
-    .style("fill", function(d){return d.color;});
+	svgElem.append("g")
+	.data(barList)
+        .attr("class", "axis")
+        .attr("transform", "translate(" + 50 + "," + scaleY + ")")
+        .call(yAxis);
+    } else {
+	var svgElem = d3.select('#svgElem').attr('height', 2000);
+	var rekt = svgElem.selectAll('rect').data(barList, function(d){return d.id;});
+	rekt.enter()
+	.append('rect')
+	.attr('width', 50)
+	.attr("y", function(d){return scaled(d.Y);})
+	.attr("height", function(d){ return scaled(d.num);})
+	.attr("x", function(d){return d.x * 90;})
+	.style("fill", function(d){return d.color;});
+	svgElem.append("g")
+	.data(barList)
+        .attr("class", "axis")
+        .attr("transform", "translate(" + 50 + "," + scaleY + ")")
+        .call(yAxis);
 
-    svgElem.append("g")
-    .data(barList)
-    .attr("class", "axis")
-    .attr("transform", "translate(" + 50 + "," + scaleY + ")")
-    .call(yAxis);
+    }
+    
 
+    
     svgElem.append("text")
     .data(barList)
     .attr("y", function(d){return (d.Y);})
@@ -102,11 +122,15 @@ function classOnly(data) {
 	{id:"3rd class alive", num:ar3a, Y:100, color:"blue", x:3},
 	{id:"3rd class dead", num:ar3d, Y: 100 + ar3a, color:"gray", x:3}
     ];
-    
-    drawElem(class1, data, 673, 44.576523031203564);
-    drawElem(class2, data, 673, 44.576523031203564);
-    drawElem(class3, data, 673, 44.576523031203564);
-    drawElem(class0, data, 673, 44.576523031203564);
+    if (ratio == false) {
+	drawElem(class1, data, 673, 44.576523031203564);
+	drawElem(class2, data, 673, 44.576523031203564);
+	drawElem(class3, data, 673, 44.576523031203564);
+	drawElem(class0, data, 673, 44.576523031203564);
+    } else {
+	drawElem(class1, data, 203, 147.7832512315271);
+    }
+	
 
 }
 
@@ -140,8 +164,14 @@ function ageOnly(data) {
 	{id:"adults dead", num:adultDead, Y: 100 + adultAlive, color:"gray", x:1}
     ];
 
-    drawElem(adultVar, data, 1364, 21.994134897360706);
-    drawElem(childVar, data, 1364, 21.994134897360706);
+    if (ratio == false) {
+	drawElem(adultVar, data, 1364, 21.994134897360706);
+	drawElem(childVar, data, 1364, 21.994134897360706);
+    } else {
+	drawElem(childVar, data, 57, 526.3157894736842);
+    }
+
+	
 }
 
 function sexOnly(data) {
@@ -174,25 +204,51 @@ function sexOnly(data) {
 	{id:"males dead", num:maleDead, Y: 100 + maleAlive, color:"gray", x:1}
     ];
 
-    //I hard coded these numbers based on the Y position of the bars after scaling.
-    drawElem(femaleVar, data, 1364, 21.994134897360706);
-    drawElem(maleVar, data, 1364, 21.994134897360706);
+    if (ratio == false) {
+	//I hard coded these numbers based on the Y position of the bars after scaling.
+	drawElem(femaleVar, data, 1364, 21.994134897360706);
+	drawElem(maleVar, data, 1364, 21.994134897360706);
+    } else {
+	drawElem(femaleVar, data, 344, 87.2093023255814); 
+    }
 }
 
 function classClick() {
     clearGraph();
+    ratio = false;
     classOnly(data);
 }
 
 function ageClick() {
     clearGraph();
+    ratio = false;
     ageOnly(data);
 }
 
 function sexClick() {
     clearGraph();
+    ratio = false;
     sexOnly(data);
 }
+
+function classRatioClick() {
+    clearGraph();
+    ratio = true;
+    classOnly(data);
+}
+
+function ageRatioClick() {
+    clearGraph();
+    ratio = true;
+    ageOnly(data);
+}
+
+function sexRatioClick() {
+    clearGraph();
+    ratio = true;
+    sexOnly(data);
+}
+
 
 $(function() {
 $.ajax({
